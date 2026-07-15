@@ -1,0 +1,44 @@
+/* Remove the browser's default page spacing and prevent scrollbars around the
+   viewport-sized canvas. */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #10131a;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+}
+
+#webgpu-canvas {
+  /* CSS controls the display size; Renderer updates the pixel backing store. */
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  /* Let pointer events drive orbiting instead of browser pan/zoom gestures. */
+  touch-action: none;
+  cursor: grab;
+}
+
+#webgpu-canvas:active {
+  cursor: grabbing;
+}
+
+#message {
+  /* The error layer stays hidden during normal rendering. */
+  position: fixed;
+  inset: 0;
+  display: none;
+  place-items: center;
+  box-sizing: border-box;
+  padding: 2rem;
+  color: #f7f7f7;
+  text-align: center;
+}
+
+#message.visible {
+  display: grid;
+}
