@@ -1,12 +1,43 @@
 {
-  "name": "vite-webgpu-template",
-  "private": true,
-  "version": "0.0.0",
+  "name": "create-vite-webgpu-project",
+  "version": "0.1.0",
+  "description": "Scaffold a minimal Vite, TypeScript, and WebGPU project.",
   "type": "module",
+  "bin": {
+    "create-vite-webgpu-project": "./bin/create-vite-webgpu-project.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "template",
+    "index.html",
+    "tsconfig.json"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node --test",
+    "prepublishOnly": "npm test && npm run build"
+  },
+  "keywords": [
+    "create",
+    "vite",
+    "webgpu",
+    "typescript",
+    "scaffold"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeantimex/vite-webgpu-template.git"
+  },
+  "homepage": "https://github.com/jeantimex/vite-webgpu-template#readme",
+  "bugs": "https://github.com/jeantimex/vite-webgpu-template/issues",
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "devDependencies": {
     "@webgpu/types": "^0.1.64",

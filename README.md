@@ -1,37 +1,78 @@
-# Vite WebGPU Template
+# Create Vite WebGPU Project
 
-A minimal Vite + TypeScript project that renders a rotating, depth-tested cube with WebGPU.
+A zero-dependency initializer for a minimal Vite + TypeScript project that renders a rotating, depth-tested WebGPU cube.
 
-Drag the canvas with a mouse, pen, or one finger to orbit the camera. Use the
-mouse wheel or trackpad to zoom.
+## Create a project
 
-## Run it
+After this package is published, run:
+
+```sh
+npm create vite-webgpu-project@latest my-project
+cd my-project
+npm install
+npm run dev
+```
+
+`npm create vite-webgpu-project` is npm shorthand for downloading and running the `create-vite-webgpu-project` package.
+
+## Develop the template
+
+This repository is both the npm initializer and a runnable copy of the template:
 
 ```sh
 npm install
 npm run dev
 ```
 
-Open the local URL printed by Vite in a current browser with WebGPU support.
+Run `npm test` to test project creation and `npm run build` to type-check and build the template.
 
-## Structure
+## Publish to npm
+
+The unscoped package name must be available in npm's global namespace. Check it, authenticate, and inspect exactly what will be uploaded:
+
+```sh
+npm view create-vite-webgpu-project
+npm login
+npm whoami
+npm test
+npm run build
+npm pack --dry-run
+```
+
+If `npm view` returns a 404, the name is available. Publish version `0.1.0`:
+
+```sh
+npm publish
+```
+
+npm requires two-factor authentication for interactive publishing. Once publishing succeeds, verify the real consumer flow in a directory outside this repository:
+
+```sh
+npm create vite-webgpu-project@latest my-project
+```
+
+For later releases, commit your work, choose the appropriate semantic-version bump, then publish the new version:
+
+```sh
+npm version patch
+npm publish
+git push --follow-tags
+```
+
+Every published `name` + `version` combination is permanent, so always inspect `npm pack --dry-run` before publishing.
+
+## Generated project structure
 
 ```text
 src/
-├── main.ts                 # DOM setup and application bootstrap
-├── camera/Camera.ts        # Renderer-facing camera interface
-├── input/OrbitControls.ts  # Pointer orbiting and wheel zoom
-├── math/mat4.ts            # Small matrix math helpers
+├── main.ts
+├── camera/Camera.ts
+├── input/OrbitControls.ts
+├── math/mat4.ts
 ├── renderer/
-│   ├── Renderer.ts         # Pipeline, resize handling, and RAF loop
-│   └── cubeShader.ts       # WGSL vertex and fragment shaders
-├── scene/Cube.ts           # Cube geometry, GPU buffers, and draw call
-├── utils/dom.ts            # DOM lookup helper
-└── webgpu/utils.ts         # WebGPU initialization and buffer/canvas helpers
+│   ├── Renderer.ts
+│   └── cubeShader.ts
+├── scene/Cube.ts
+├── utils/dom.ts
+└── webgpu/utils.ts
 ```
-
-## Commands
-
-- `npm run dev` starts the development server.
-- `npm run build` type-checks and creates a production build in `dist/`.
-- `npm run preview` serves the production build locally.
