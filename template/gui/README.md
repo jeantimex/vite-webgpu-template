@@ -1,6 +1,6 @@
 # Vite WebGPU Project
 
-A minimal Vite + TypeScript project that renders a rotating, depth-tested cube with WebGPU.
+A minimal Vite + TypeScript project that renders a WebGPU shape with lil-gui controls.
 
 ## Run it
 
@@ -11,7 +11,7 @@ npm run dev
 
 Open the local URL printed by Vite in a current browser with WebGPU support.
 
-Drag the canvas to orbit the camera. Use the mouse wheel or trackpad to zoom.
+Use the control panel to adjust size, color, wireframe mode, rotation, and rotation speed. Drag the canvas to orbit the camera and use the mouse wheel or trackpad to zoom.
 
 ## Commands
 

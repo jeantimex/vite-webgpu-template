@@ -1,6 +1,15 @@
 /** A column-major 4x4 matrix, matching WGSL's mat4x4f memory layout. */
 export type Mat4 = Float32Array<ArrayBuffer>;
 
+export function identity(): Mat4 {
+  return new Float32Array([
+    1, 0, 0, 0,
+    0, 1, 0, 0,
+    0, 0, 1, 0,
+    0, 0, 0, 1,
+  ]);
+}
+
 /** Multiplies two matrices in application order: the result transforms by b, then a. */
 export function multiply(a: Mat4, b: Mat4): Mat4 {
   const out = new Float32Array(16);
@@ -37,6 +46,15 @@ export function translation(x: number, y: number, z: number): Mat4 {
     0, 1, 0, 0,
     0, 0, 1, 0,
     x, y, z, 1,
+  ]);
+}
+
+export function scaling(x: number, y: number, z: number): Mat4 {
+  return new Float32Array([
+    x, 0, 0, 0,
+    0, y, 0, 0,
+    0, 0, z, 0,
+    0, 0, 0, 1,
   ]);
 }
 

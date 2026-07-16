@@ -1,6 +1,6 @@
 {
   "name": "create-vite-webgpu-project",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Scaffold a minimal Vite, TypeScript, and WebGPU project.",
   "type": "module",
   "bin": {
@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "@webgpu/types": "^0.1.64",
+    "lil-gui": "^0.21.0",
     "typescript": "^5.8.3",
     "vite": "^6.2.6"
   }

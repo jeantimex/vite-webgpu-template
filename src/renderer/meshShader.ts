@@ -1,6 +1,6 @@
 // Keeping this small shader in TypeScript avoids adding a raw-WGSL loader. For
 // larger shaders, moving WGSL into standalone files is usually easier to maintain.
-export const cubeShader = /* wgsl */ `
+export const meshShader = /* wgsl */ `
   // The CPU writes one model-view-projection matrix into this uniform buffer.
   struct Uniforms {
     mvp: mat4x4f,
