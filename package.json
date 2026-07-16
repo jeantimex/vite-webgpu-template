@@ -4,7 +4,7 @@
   "description": "Scaffold a minimal Vite, TypeScript, and WebGPU project.",
   "type": "module",
   "bin": {
-    "create-vite-webgpu-project": "./bin/create-vite-webgpu-project.js"
+    "create-vite-webgpu-project": "bin/create-vite-webgpu-project.js"
   },
   "files": [
     "bin",
