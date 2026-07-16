@@ -43,7 +43,7 @@ Pass options after `--` when using `npm create`:
 | `--scene default\|cube\|sphere\|none` | Select the generated starter scene | `default` |
 | `--rotate` | Start Cube or Sphere with rotation enabled | Enabled |
 | `--no-rotate` | Start Cube or Sphere without rotation | — |
-| `--gui` | Install lil-gui and generate `src/gui/SettingsGui.ts` | Enabled |
+| `--gui` | Install lil-gui and generate `src/gui/settings_gui.ts` | Enabled |
 | `--no-gui` | Omit lil-gui, its dependency, and GUI source | — |
 | `-h`, `--help` | Show CLI usage | — |
 
@@ -70,7 +70,7 @@ Generation happens at scaffold time rather than through runtime scene-selection 
 | Default | SVG asset plus the textured-quad renderer and shader |
 | Cube or Sphere | Camera, orbit controls, matrix math, selected geometry, mesh shader, and depth renderer |
 | None | Minimal canvas-clearing renderer; no geometry, texture, shader, camera, or math modules |
-| Any scene with lil-gui | `src/gui/SettingsGui.ts` and the `lil-gui` dependency |
+| Any scene with lil-gui | `src/gui/settings_gui.ts` and the `lil-gui` dependency |
 
 A Cube or Sphere project with lil-gui has this representative structure:
 
@@ -80,16 +80,16 @@ public/
 src/
 ├── main.ts
 ├── style.css
-├── camera/Camera.ts
-├── gui/SettingsGui.ts
-├── input/OrbitControls.ts
+├── camera/camera.ts
+├── gui/settings_gui.ts
+├── input/orbit_control.ts
 ├── math/mat4.ts
 ├── renderer/
-│   ├── Renderer.ts
-│   └── meshShader.ts
+│   ├── renderer.ts
+│   └── mesh_shader.ts
 ├── scene/
-│   ├── Mesh.ts
-│   └── Shape.ts
+│   ├── mesh.ts
+│   └── shape.ts
 ├── utils/dom.ts
 └── webgpu/utils.ts
 ```

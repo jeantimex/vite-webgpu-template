@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Open the local URL printed by Vite in a current browser with WebGPU support, then extend the rendering code in `src/renderer/Renderer.ts`.
+Open the local URL printed by Vite in a current browser with WebGPU support, then extend the rendering code in `src/renderer/renderer.ts`.
 
 ## Commands
 

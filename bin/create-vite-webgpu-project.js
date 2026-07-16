@@ -226,7 +226,7 @@ async function customizeGeneratedSource() {
       rm(path.join(sourceDirectory, "input"), { recursive: true }),
       rm(path.join(sourceDirectory, "math"), { recursive: true }),
       rm(path.join(sourceDirectory, "scene"), { recursive: true }),
-      rm(path.join(sourceDirectory, "renderer", "meshShader.ts")),
+      rm(path.join(sourceDirectory, "renderer", "mesh_shader.ts")),
       cp(
         path.join(packageRoot, "template", addGui ? "empty-gui" : "empty", "main.ts"),
         path.join(sourceDirectory, "main.ts"),
@@ -238,14 +238,14 @@ async function customizeGeneratedSource() {
       ),
       cp(
         path.join(packageRoot, "template", "empty", "Renderer.ts"),
-        path.join(sourceDirectory, "renderer", "Renderer.ts"),
+        path.join(sourceDirectory, "renderer", "renderer.ts"),
       ),
     ];
     if (addGui) {
       emptyProjectTasks.push(
         cp(
           path.join(packageRoot, "template", "empty-gui", "SettingsGui.ts"),
-          path.join(sourceDirectory, "gui", "SettingsGui.ts"),
+          path.join(sourceDirectory, "gui", "settings_gui.ts"),
         ),
       );
     }
@@ -254,8 +254,8 @@ async function customizeGeneratedSource() {
   }
 
   await Promise.all([
-    rm(path.join(sourceDirectory, "scene", "Cube.ts")),
-    rm(path.join(sourceDirectory, "scene", "Sphere.ts")),
+    rm(path.join(sourceDirectory, "scene", "cube.ts")),
+    rm(path.join(sourceDirectory, "scene", "sphere.ts")),
     cp(path.join(packageRoot, "template", "shape", "main.ts"), path.join(sourceDirectory, "main.ts")),
   ]);
 
@@ -310,8 +310,8 @@ async function customizeGeneratedSource() {
   }
 
   await Promise.all([
-    writeFile(path.join(sourceDirectory, "renderer", "Renderer.ts"), rendererSource),
-    writeFile(path.join(sourceDirectory, "scene", "Shape.ts"), shapeSource),
+    writeFile(path.join(sourceDirectory, "renderer", "renderer.ts"), rendererSource),
+    writeFile(path.join(sourceDirectory, "scene", "shape.ts"), shapeSource),
   ]);
 }
 
@@ -328,7 +328,7 @@ async function customizeNoneSource(sourceDirectory) {
     rm(path.join(sourceDirectory, "input"), { recursive: true }),
     rm(path.join(sourceDirectory, "math"), { recursive: true }),
     rm(path.join(sourceDirectory, "scene"), { recursive: true }),
-    rm(path.join(sourceDirectory, "renderer", "meshShader.ts")),
+    rm(path.join(sourceDirectory, "renderer", "mesh_shader.ts")),
     cp(
       path.join(packageRoot, "template", addGui ? "none-gui" : "none", "main.ts"),
       path.join(sourceDirectory, "main.ts"),
@@ -336,14 +336,14 @@ async function customizeNoneSource(sourceDirectory) {
     cp(path.join(packageRoot, "template", "empty", "style.css"), path.join(sourceDirectory, "style.css")),
     cp(
       path.join(packageRoot, "template", "none", "Renderer.ts"),
-      path.join(sourceDirectory, "renderer", "Renderer.ts"),
+      path.join(sourceDirectory, "renderer", "renderer.ts"),
     ),
   ];
   if (addGui) {
     tasks.push(
       cp(
         path.join(packageRoot, "template", "none-gui", "SettingsGui.ts"),
-        path.join(sourceDirectory, "gui", "SettingsGui.ts"),
+        path.join(sourceDirectory, "gui", "settings_gui.ts"),
       ),
     );
   }
@@ -359,13 +359,13 @@ async function customizeGuiSource(sourceDirectory) {
     .replace("__INITIAL_ROTATE__", String(rotate));
 
   await Promise.all([
-    cp(path.join(guiTemplateDirectory, "Mesh.ts"), path.join(sourceDirectory, "scene", "Mesh.ts")),
-    cp(path.join(guiTemplateDirectory, "SettingsGui.ts"), path.join(sourceDirectory, "gui", "SettingsGui.ts")),
+    cp(path.join(guiTemplateDirectory, "Mesh.ts"), path.join(sourceDirectory, "scene", "mesh.ts")),
+    cp(path.join(guiTemplateDirectory, "SettingsGui.ts"), path.join(sourceDirectory, "gui", "settings_gui.ts")),
     cp(
       path.join(guiTemplateDirectory, selectedShape === "cube" ? "Cube.ts" : "Sphere.ts"),
-      path.join(sourceDirectory, "scene", "Shape.ts"),
+      path.join(sourceDirectory, "scene", "shape.ts"),
     ),
-    cp(path.join(guiTemplateDirectory, "meshShader.ts"), path.join(sourceDirectory, "renderer", "meshShader.ts")),
-    writeFile(path.join(sourceDirectory, "renderer", "Renderer.ts"), rendererSource),
+    cp(path.join(guiTemplateDirectory, "meshShader.ts"), path.join(sourceDirectory, "renderer", "mesh_shader.ts")),
+    writeFile(path.join(sourceDirectory, "renderer", "renderer.ts"), rendererSource),
   ]);
 }

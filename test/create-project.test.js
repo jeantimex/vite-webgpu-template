@@ -37,7 +37,7 @@ test("creates a ready-to-install project", async () => {
     assert.equal(packageJson.name, "my-project");
     assert.equal(packageJson.private, true);
     assert.equal(packageJson.dependencies["lil-gui"], "^0.21.0");
-    assert.deepEqual(await readdir(path.join(projectDirectory, "src", "renderer")), ["Renderer.ts"]);
+    assert.deepEqual(await readdir(path.join(projectDirectory, "src", "renderer")), ["renderer.ts"]);
     assert.match(await readFile(path.join(projectDirectory, ".gitignore"), "utf8"), /node_modules/);
     assert.deepEqual(
       await readFile(path.join(projectDirectory, "public", "favicon.ico")),
@@ -51,12 +51,12 @@ test("creates a ready-to-install project", async () => {
       stdout,
       /Starter: Default — centered WebGPU logo rendered on the GPU, with a lil-gui Settings panel/,
     );
-    assert.deepEqual(await readdir(path.join(projectDirectory, "src", "gui")), ["SettingsGui.ts"]);
+    assert.deepEqual(await readdir(path.join(projectDirectory, "src", "gui")), ["settings_gui.ts"]);
     assert.match(
       await readFile(path.join(projectDirectory, "src", "assets", "webgpu.svg"), "utf8"),
       /<svg[^>]+width="768"[^>]+height="768"/,
     );
-    const renderer = await readFile(path.join(projectDirectory, "src", "renderer", "Renderer.ts"), "utf8");
+    const renderer = await readFile(path.join(projectDirectory, "src", "renderer", "renderer.ts"), "utf8");
     assert.match(renderer, /copyExternalImageToTexture/);
     assert.match(renderer, /new Image\(\)/);
     assert.doesNotMatch(renderer, /createImageBitmap/);
@@ -82,12 +82,12 @@ test("adds specialized lil-gui controls only when selected", async () => {
     const projectDirectory = path.join(temporaryDirectory, "gui-demo");
     const packageJson = JSON.parse(await readFile(path.join(projectDirectory, "package.json"), "utf8"));
     const renderer = await readFile(
-      path.join(projectDirectory, "src", "renderer", "Renderer.ts"),
+      path.join(projectDirectory, "src", "renderer", "renderer.ts"),
       "utf8",
     );
-    const shape = await readFile(path.join(projectDirectory, "src", "scene", "Shape.ts"), "utf8");
+    const shape = await readFile(path.join(projectDirectory, "src", "scene", "shape.ts"), "utf8");
     const guiSetup = await readFile(
-      path.join(projectDirectory, "src", "gui", "SettingsGui.ts"),
+      path.join(projectDirectory, "src", "gui", "settings_gui.ts"),
       "utf8",
     );
 
@@ -122,10 +122,10 @@ test("writes command-line rendering choices into the generated project", async (
     );
     const projectDirectory = path.join(temporaryDirectory, "sphere-demo");
     const renderer = await readFile(
-      path.join(projectDirectory, "src", "renderer", "Renderer.ts"),
+      path.join(projectDirectory, "src", "renderer", "renderer.ts"),
       "utf8",
     );
-    const shape = await readFile(path.join(projectDirectory, "src", "scene", "Shape.ts"), "utf8");
+    const shape = await readFile(path.join(projectDirectory, "src", "scene", "shape.ts"), "utf8");
 
     assert.match(stdout, /stationary solid sphere/);
     assert.match(renderer, /topology: 'triangle-list'/);
@@ -151,14 +151,14 @@ test("adds logo controls to the Default scene with lil-gui", async () => {
     const sourceDirectory = path.join(temporaryDirectory, "empty-demo", "src");
     const sourceEntries = await readdir(sourceDirectory);
     const rendererEntries = await readdir(path.join(sourceDirectory, "renderer"));
-    const renderer = await readFile(path.join(sourceDirectory, "renderer", "Renderer.ts"), "utf8");
+    const renderer = await readFile(path.join(sourceDirectory, "renderer", "renderer.ts"), "utf8");
     const packageJson = JSON.parse(
       await readFile(path.join(temporaryDirectory, "empty-demo", "package.json"), "utf8"),
     );
 
     assert.deepEqual(sourceEntries, ["assets", "gui", "main.ts", "renderer", "style.css", "utils", "webgpu"]);
-    assert.deepEqual(await readdir(path.join(sourceDirectory, "gui")), ["SettingsGui.ts"]);
-    assert.deepEqual(rendererEntries, ["Renderer.ts"]);
+    assert.deepEqual(await readdir(path.join(sourceDirectory, "gui")), ["settings_gui.ts"]);
+    assert.deepEqual(rendererEntries, ["renderer.ts"]);
     assert.match(
       stdout,
       /Default — centered WebGPU logo rendered on the GPU, with a lil-gui Settings panel/,
@@ -166,7 +166,7 @@ test("adds logo controls to the Default scene with lil-gui", async () => {
     assert.match(renderer, /copyExternalImageToTexture/);
     assert.match(renderer, /textureSample\(logoTexture/);
     assert.equal(packageJson.dependencies["lil-gui"], "^0.21.0");
-    const guiSetup = await readFile(path.join(sourceDirectory, "gui", "SettingsGui.ts"), "utf8");
+    const guiSetup = await readFile(path.join(sourceDirectory, "gui", "settings_gui.ts"), "utf8");
     const main = await readFile(path.join(sourceDirectory, "main.ts"), "utf8");
     assert.match(guiSetup, /new GUI\(\{ title: 'Settings' \}\)/);
     assert.match(guiSetup, /size: 0\.5/);
@@ -195,8 +195,8 @@ test("renders nothing but an empty Settings panel for the None scene", async () 
     const projectDirectory = path.join(temporaryDirectory, "none-demo");
     const sourceDirectory = path.join(projectDirectory, "src");
     const packageJson = JSON.parse(await readFile(path.join(projectDirectory, "package.json"), "utf8"));
-    const renderer = await readFile(path.join(sourceDirectory, "renderer", "Renderer.ts"), "utf8");
-    const guiSetup = await readFile(path.join(sourceDirectory, "gui", "SettingsGui.ts"), "utf8");
+    const renderer = await readFile(path.join(sourceDirectory, "renderer", "renderer.ts"), "utf8");
+    const guiSetup = await readFile(path.join(sourceDirectory, "gui", "settings_gui.ts"), "utf8");
 
     assert.match(
       stdout,

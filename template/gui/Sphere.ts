@@ -1,4 +1,4 @@
-import { Mesh } from './Mesh';
+import { Mesh } from './mesh';
 
 const LATITUDE_SEGMENTS = 24;
 const LONGITUDE_SEGMENTS = 32;

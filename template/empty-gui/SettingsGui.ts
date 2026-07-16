@@ -1,5 +1,5 @@
 import GUI from 'lil-gui';
-import type { LogoSettings } from '../renderer/Renderer';
+import type { LogoSettings } from '../renderer/renderer';
 
 /** Creates the starter settings panel and returns its live values. */
 export function setupGui(): LogoSettings {

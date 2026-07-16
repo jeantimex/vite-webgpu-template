@@ -1,7 +1,7 @@
 import './style.css';
 import { demoConfig } from './demoConfig';
-import { OrbitControls } from './input/OrbitControls';
-import { Renderer } from './renderer/Renderer';
+import { OrbitControls } from './input/orbit_control';
+import { Renderer } from './renderer/renderer';
 import { requiredElement } from './utils/dom';
 import { initializeWebGPU } from './webgpu/utils';
 

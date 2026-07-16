@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Open the local URL printed by Vite in a current browser with WebGPU support. The “Settings” panel controls the logo size and the color of the SVG’s `.cls-6` text. Add future controls in `src/gui/SettingsGui.ts`.
+Open the local URL printed by Vite in a current browser with WebGPU support. The “Settings” panel controls the logo size and the color of the SVG’s `.cls-6` text. Add future controls in `src/gui/settings_gui.ts`.
 
 ## Commands
 

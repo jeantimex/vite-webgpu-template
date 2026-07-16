@@ -1,6 +1,6 @@
 import './style.css';
-import { setupGui } from './gui/SettingsGui';
-import { Renderer } from './renderer/Renderer';
+import { setupGui } from './gui/settings_gui';
+import { Renderer } from './renderer/renderer';
 import { requiredElement } from './utils/dom';
 import { initializeWebGPU } from './webgpu/utils';
 

@@ -1,9 +1,9 @@
-import type { Camera } from '../camera/Camera';
+import type { Camera } from '../camera/camera';
 __MATH_IMPORT__
-import { Shape } from '../scene/Shape';
-import { Mesh } from '../scene/Mesh';
+import { Shape } from '../scene/shape';
+import { Mesh } from '../scene/mesh';
 import { resizeCanvasToDisplaySize, type WebGPUState } from '../webgpu/utils';
-import { meshShader } from './meshShader';
+import { meshShader } from './mesh_shader';
 
 const DEPTH_FORMAT: GPUTextureFormat = 'depth24plus';
 

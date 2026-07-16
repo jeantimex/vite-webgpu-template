@@ -1,4 +1,4 @@
-import type { Camera } from '../camera/Camera';
+import type { Camera } from '../camera/camera';
 import { lookAt, type Mat4 } from '../math/mat4';
 
 export interface OrbitControlsOptions {

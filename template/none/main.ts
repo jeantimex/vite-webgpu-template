@@ -1,5 +1,5 @@
 import './style.css';
-import { Renderer } from './renderer/Renderer';
+import { Renderer } from './renderer/renderer';
 import { requiredElement } from './utils/dom';
 import { initializeWebGPU } from './webgpu/utils';
 

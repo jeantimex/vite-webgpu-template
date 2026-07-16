@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Open the local URL printed by Vite in a current browser with WebGPU support. A basic empty panel titled “Settings” is initialized in `src/gui/SettingsGui.ts`; add future controls there.
+Open the local URL printed by Vite in a current browser with WebGPU support. A basic empty panel titled “Settings” is initialized in `src/gui/settings_gui.ts`; add future controls there.
 
 ## Commands
 

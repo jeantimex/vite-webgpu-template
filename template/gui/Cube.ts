@@ -1,4 +1,4 @@
-import { Mesh } from './Mesh';
+import { Mesh } from './mesh';
 
 const vertices = new Float32Array([
   -1, -1,  1,

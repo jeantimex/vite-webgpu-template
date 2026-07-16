@@ -1,11 +1,11 @@
-import type { Camera } from '../camera/Camera';
+import type { Camera } from '../camera/camera';
 import type { DemoConfig } from '../demoConfig';
 import { identity, multiply, perspective, rotationX, rotationY } from '../math/mat4';
-import { Cube } from '../scene/Cube';
-import { Mesh } from '../scene/Mesh';
-import { Sphere } from '../scene/Sphere';
+import { Cube } from '../scene/cube';
+import { Mesh } from '../scene/mesh';
+import { Sphere } from '../scene/sphere';
 import { resizeCanvasToDisplaySize, type WebGPUState } from '../webgpu/utils';
-import { meshShader } from './meshShader';
+import { meshShader } from './mesh_shader';
 
 const DEPTH_FORMAT: GPUTextureFormat = 'depth24plus';
 
