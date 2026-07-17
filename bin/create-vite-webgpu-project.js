@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { cp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
+import { spawn } from "node:child_process";
 import path from "node:path";
 import process from "node:process";
 import { createInterface } from "node:readline/promises";
@@ -18,6 +19,8 @@ Options:
   --no-rotate                   Keep the selected shape stationary
   --gui                         Install lil-gui and add a Settings panel
   --no-gui                      Do not add runtime controls
+  --install                     Install project dependencies
+  --no-install                  Skip dependency installation
 
 Example:
   npm create vite-webgpu-project my-project
@@ -29,6 +32,7 @@ let argument;
 let selectedShape;
 let rotate;
 let addGui;
+let installDependencies;
 
 for (let index = 0; index < args.length; index++) {
   const value = args[index];
@@ -44,6 +48,10 @@ for (let index = 0; index < args.length; index++) {
     addGui = true;
   } else if (value === "--no-gui") {
     addGui = false;
+  } else if (value === "--install") {
+    installDependencies = true;
+  } else if (value === "--no-install") {
+    installDependencies = false;
   } else if (value.startsWith("-")) {
     fail(`Unknown option: ${value}`);
   } else if (argument) {
@@ -95,6 +103,7 @@ if (process.stdin.isTTY && process.stdout.isTTY) {
       rotate ??= await promptForBoolean(prompts, "Rotate the shape?", true);
     }
     addGui ??= await promptForBoolean(prompts, "Install lil-gui?", true);
+    installDependencies ??= await promptForBoolean(prompts, "Install dependencies now?", true);
   } finally {
     prompts.close();
   }
@@ -103,12 +112,14 @@ if (process.stdin.isTTY && process.stdout.isTTY) {
 selectedShape ??= "default";
 rotate = selectedShape === "cube" || selectedShape === "sphere" ? (rotate ?? true) : false;
 addGui ??= true;
+installDependencies ??= true;
 
 if (addGui) {
   projectPackage.dependencies = { "lil-gui": "^0.21.0" };
 }
 
 let createdDirectory = false;
+let scaffoldComplete = false;
 
 try {
   try {
@@ -146,21 +157,33 @@ try {
     writeFile(path.join(targetDirectory, "package.json"), `${JSON.stringify(projectPackage, null, 2)}\n`),
     writeFile(path.join(targetDirectory, ".gitignore"), "node_modules\ndist\n.DS_Store\n"),
   ]);
+  scaffoldComplete = true;
 
-  const shownDirectory = path.relative(process.cwd(), targetDirectory) || ".";
+  const shownDirectory = path.isAbsolute(argument)
+    ? targetDirectory
+    : (path.relative(process.cwd(), targetDirectory) || ".");
   console.log(`\nCreated ${packageName} in ${targetDirectory}`);
   console.log(`Starter: ${describeDemo()}\n`);
+  if (installDependencies) {
+    console.log("Installing dependencies...\n");
+    await runNpmInstall();
+    console.log("\nDependencies installed.\n");
+  }
   console.log("Next steps:");
   if (shownDirectory !== ".") {
     console.log(`  cd ${shownDirectory}`);
   }
-  console.log("  npm install");
+  if (!installDependencies) console.log("  npm install");
   console.log("  npm run dev\n");
 } catch (error) {
-  if (createdDirectory) {
+  if (createdDirectory && !scaffoldComplete) {
     await rm(targetDirectory, { recursive: true, force: true });
   }
-  console.error(`Failed to create project: ${error.message}`);
+  console.error(
+    scaffoldComplete
+      ? `Project created, but dependency installation failed: ${error.message}`
+      : `Failed to create project: ${error.message}`,
+  );
   process.exit(1);
 }
 
@@ -207,6 +230,28 @@ function describeDemo() {
 function fail(message) {
   console.error(`${message}\n\nUsage: npm create vite-webgpu-project <project-directory> [options]`);
   process.exit(1);
+}
+
+async function runNpmInstall() {
+  const npmCommand = process.platform === "win32" ? "npm.cmd" : "npm";
+  await new Promise((resolve, reject) => {
+    const child = spawn(npmCommand, ["install"], {
+      cwd: targetDirectory,
+      stdio: "inherit",
+    });
+    child.once("error", reject);
+    child.once("close", (code, signal) => {
+      if (code === 0) {
+        resolve();
+      } else {
+        reject(new Error(
+          signal
+            ? `npm install was terminated by ${signal}.`
+            : `npm install exited with code ${code}.`,
+        ));
+      }
+    });
+  });
 }
 
 async function customizeGeneratedSource() {

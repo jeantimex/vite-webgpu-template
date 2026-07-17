@@ -7,11 +7,12 @@ A zero-runtime-dependency initializer for creating a focused Vite + TypeScript W
 ```sh
 npm create vite-webgpu-project@latest my-project
 cd my-project
-npm install
 npm run dev
 ```
 
 Open the URL printed by Vite in a browser with WebGPU support.
+
+Dependency installation is the final prompt and defaults to Yes. When installation finishes, the initializer prints the exact `cd` and `npm run dev` commands. A child process cannot change the working directory of its parent shell, so the command is printed rather than executed automatically.
 
 ## Interactive options
 
@@ -22,6 +23,7 @@ The initializer walks through these choices:
 | Starter scene | Default, Cube, Sphere, None | Default | Always |
 | Rotate the shape | Yes or No | Yes | Cube and Sphere only |
 | Install lil-gui | Yes or No | Yes | Always |
+| Install dependencies now | Yes or No | Yes | Always; final question |
 
 ### Scenes
 
@@ -45,6 +47,8 @@ Pass options after `--` when using `npm create`:
 | `--no-rotate` | Start Cube or Sphere without rotation | — |
 | `--gui` | Install lil-gui and generate `src/gui/settings_gui.ts` | Enabled |
 | `--no-gui` | Omit lil-gui, its dependency, and GUI source | — |
+| `--install` | Run `npm install` after creating the project | Enabled |
+| `--no-install` | Create the project without installing dependencies | — |
 | `-h`, `--help` | Show CLI usage | — |
 
 Examples:
@@ -137,7 +141,7 @@ npm run build
 npm pack --dry-run
 ```
 
-If `npm view` returns a 404, the name is available. Publish version `1.0.0`:
+If `npm view` returns a 404, the name is available. Publish version `1.0.1`:
 
 ```sh
 npm publish

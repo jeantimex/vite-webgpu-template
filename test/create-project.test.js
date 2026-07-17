@@ -27,7 +27,7 @@ test("creates a ready-to-install project", async () => {
   const temporaryDirectory = await mkdtemp(path.join(os.tmpdir(), "create-vite-webgpu-project-"));
 
   try {
-    const { stdout } = await execFileAsync(process.execPath, [cli, "my-project"], {
+    const { stdout } = await execFileAsync(process.execPath, [cli, "my-project", "--no-install"], {
       cwd: temporaryDirectory,
     });
     const projectDirectory = path.join(temporaryDirectory, "my-project");
@@ -51,6 +51,7 @@ test("creates a ready-to-install project", async () => {
       stdout,
       /Starter: Default — centered WebGPU logo rendered on the GPU, with a lil-gui Settings panel/,
     );
+    assert.match(stdout, /Next steps:[\s\S]*cd my-project[\s\S]*npm install[\s\S]*npm run dev/);
     assert.deepEqual(await readdir(path.join(projectDirectory, "src", "gui")), ["settings_gui.ts"]);
     assert.match(
       await readFile(path.join(projectDirectory, "src", "assets", "webgpu.svg"), "utf8"),
@@ -76,7 +77,7 @@ test("adds specialized lil-gui controls only when selected", async () => {
   try {
     const { stdout } = await execFileAsync(
       process.execPath,
-      [cli, "gui-demo", "--scene", "cube", "--no-rotate", "--gui"],
+      [cli, "gui-demo", "--scene", "cube", "--no-rotate", "--gui", "--no-install"],
       { cwd: temporaryDirectory },
     );
     const projectDirectory = path.join(temporaryDirectory, "gui-demo");
@@ -117,7 +118,7 @@ test("writes command-line rendering choices into the generated project", async (
   try {
     const { stdout } = await execFileAsync(
       process.execPath,
-      [cli, "sphere-demo", "--scene", "sphere", "--no-rotate", "--no-gui"],
+      [cli, "sphere-demo", "--scene", "sphere", "--no-rotate", "--no-gui", "--no-install"],
       { cwd: temporaryDirectory },
     );
     const projectDirectory = path.join(temporaryDirectory, "sphere-demo");
@@ -145,7 +146,7 @@ test("adds logo controls to the Default scene with lil-gui", async () => {
   try {
     const { stdout } = await execFileAsync(
       process.execPath,
-      [cli, "empty-demo", "--scene", "default", "--rotate", "--gui"],
+      [cli, "empty-demo", "--scene", "default", "--rotate", "--gui", "--no-install"],
       { cwd: temporaryDirectory },
     );
     const sourceDirectory = path.join(temporaryDirectory, "empty-demo", "src");
@@ -189,7 +190,7 @@ test("renders nothing but an empty Settings panel for the None scene", async () 
   try {
     const { stdout } = await execFileAsync(
       process.execPath,
-      [cli, "none-demo", "--scene", "none", "--gui"],
+      [cli, "none-demo", "--scene", "none", "--gui", "--no-install"],
       { cwd: temporaryDirectory },
     );
     const projectDirectory = path.join(temporaryDirectory, "none-demo");
